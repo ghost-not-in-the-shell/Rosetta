@@ -13,6 +13,10 @@ record Op {ob} (hom : ob → ob → Set) : Set where
 
 open Op ⦃...⦄ public
 
+{-# DISPLAY Op.id    _ = id    #-}
+{-# DISPLAY Op.id₍_₎ _ = id₍_₎ #-}
+{-# DISPLAY Op._∘_   _ = _∘_   #-}
+
 record Category : Set where
   infix 4 _∣_∼_
   field
@@ -35,6 +39,34 @@ record Category : Set where
     .∘-unitʳ : ∀ {A B} {f : hom A B} → (f ∘ id) ∼ f
     .∘-assoc : ∀ {A B C D} {f : hom A B} {g : hom B C} {h : hom C D}
       → ((h ∘ g) ∘ f) ∼ (h ∘ (g ∘ f))
+
+  _ᵒᵖ : Category
+  _ᵒᵖ =
+    let flip : ∀ {A B C} → (A → B → C) → (B → A → C)
+        flip f = λ y x → f x y
+    in record
+    { ob    = ob
+    ; hom   = flip hom
+    ; _∣_∼_ = _∼_
+    ; op = record
+      { id  = id
+      ; _∘_ = flip _∘_
+      }
+    ; ∘-cong₂ = flip ∘-cong₂
+    ; ∘-unitˡ = ∘-unitʳ
+    ; ∘-unitʳ = ∘-unitˡ
+    ; ∘-assoc = sym ∘-assoc
+    }
+
+  .whiskerˡ : ∀ {A B C} {f : hom A B} {g₁ g₂ : hom B C}
+    → g₁ ∼ g₂
+    → (g₁ ∘ f) ∼ (g₂ ∘ f)
+  whiskerˡ g₁∼g₂ = ∘-cong₂ g₁∼g₂ refl
+
+  .whiskerʳ : ∀ {A B C} {f₁ f₂ : hom A B} {g : hom B C}
+    → f₁ ∼ f₂
+    → (g ∘ f₁) ∼ (g ∘ f₂)
+  whiskerʳ f₁∼f₂ = ∘-cong₂ refl f₁∼f₂
 
 open Category public hiding (op; ∼‿equiv)
 

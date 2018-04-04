@@ -18,3 +18,21 @@ record IsEquivalence {A} (_∼_ : Rel A) : Set where
   inj ≡-refl = refl
 
 open IsEquivalence ⦃...⦄ public
+
+module EqReasoning {A} {_∼_ : Rel A} ⦃ _ : IsEquivalence _∼_ ⦄ where
+  infix  1 begin_
+  infixr 2 _↓⟨_⟩_
+  infixr 2 _↑⟨_⟩_
+  infix  3 _∎
+
+  .begin_ : ∀ {x y} → x ∼ y → x ∼ y
+  begin x∼y = x∼y
+
+  ._↓⟨_⟩_ : ∀ x {y z} → x ∼ y → y ∼ z → x ∼ z
+  x ↓⟨ x∼y ⟩ y∼z = trans x∼y y∼z
+
+  ._↑⟨_⟩_ : ∀ x {y z} → y ∼ x → y ∼ z → x ∼ z
+  x ↑⟨ y∼x ⟩ y∼z = trans (sym y∼x) y∼z
+
+  ._∎ : ∀ x → x ∼ x
+  x ∎ = refl₍ x ₎
