@@ -5,7 +5,7 @@ open import Rosetta.Equality
 open import Rosetta.Category        as Category
 open import Rosetta.CartesianClosed as CartesianClosed
 
-infix 0 _-𝓢et⟶_
+infix 4 _-𝓢et⟶_
 _-𝓢et⟶_ : Set → Set → Set
 A -𝓢et⟶ B = A → B
 
@@ -18,8 +18,8 @@ instance
 
 𝓢et : Category
 𝓢et = record
-  { ob    = Set
-  ; hom   = _-𝓢et⟶_
+  { ob = Set
+  ; _∣_⟶_ = _-𝓢et⟶_
   ; _∣_∼_ = _≡_
   ; ∘-cong₂ = cong₂ _∘_
   ; ∘-unitˡ = refl
@@ -30,7 +30,7 @@ instance
 record 𝟙 : Set where
   constructor tt
 
-infixr 2 _×_
+infixr 6 _×_
 infixr 4 _,_
 record _×_ (A B : Set) : Set where
   constructor _,_
@@ -40,6 +40,7 @@ record _×_ (A B : Set) : Set where
 
 open _×_
 
+infixr 7 _⇒_
 _⇒_ : Set → Set → Set
 A ⇒ B = A → B
 
@@ -49,12 +50,11 @@ instance
     { 𝟙   = 𝟙
     ; _×_ = _×_
     ; _⇒_ = _⇒_
-
     ; !     = λ _ → tt
     ; π₁    = π₁
     ; π₂    = π₂
     ; ⟨_,_⟩ = λ f g x → f x , g x
-    ; ev    = λ { (f , x) → f x }
+    ; ε     = λ { (f , x) → f x }
     ; λ₍_₎  = λ f x y → f (x , y)
     }
 
@@ -64,8 +64,8 @@ instance
   ; ⟨,⟩-cong₂     = cong₂ ⟨_,_⟩
   ; ⟨,⟩-commute₁  = refl
   ; ⟨,⟩-commute₂  = refl
-  ; ⟨,⟩-universal = cong₂ ⟨_,_⟩
+  ; ⟨,⟩-universal = λ ⁇-commute₁ ⁇-commute₂ → cong₂ ⟨_,_⟩ ⁇-commute₁ ⁇-commute₂
   ; λ-cong        = cong λ₍_₎
   ; λ-commute     = refl
-  ; λ-universal   = cong λ₍_₎
+  ; λ-universal   = λ ⁇-commute → cong λ₍_₎ ⁇-commute
   }

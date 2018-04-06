@@ -12,15 +12,17 @@ open import Rosetta.Equivalence
 instance
   ≡-equiv : ∀ {A} → IsEquivalence (_≡_ {A = A})
   ≡-equiv = record
-    { refl₍_₎ = λ _ → ≡-refl ; sym = ≡-sym ; trans = ≡-trans }
-
+    { refl  = ≡-refl
+    ; sym   = ≡-sym
+    ; trans = ≡-trans
+    }
 
 cong : ∀ {A B} (f : A → B) {x₁ x₂}
   → x₁ ≡ x₂
   → f x₁ ≡ f x₂
 cong f ≡-refl = ≡-refl
 
-cong₂ : ∀ {A B C} (_∙_ : A → B → C) {x₁ x₂ y₁ y₂}
+cong₂ : ∀ {A₁ A₂ B} (_∙_ : A₁ → A₂ → B) {x₁ x₂ y₁ y₂}
   → x₁ ≡ x₂
   → y₁ ≡ y₂
   → x₁ ∙ y₁ ≡ x₂ ∙ y₂
