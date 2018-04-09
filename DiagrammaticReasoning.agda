@@ -2,7 +2,7 @@
 open import Rosetta.Category
 module Rosetta.DiagrammaticReasoning (𝓒 : Category) where
 open import Rosetta.Equivalence
-open EqReasoning public
+module _ {A B} where open SetoidReasoning (𝒉𝒐𝒎 𝓒 A B) public
 
 infixr 5 _⟩∘⟨_
 ._⟩∘⟨_ : ∀ {A B C}
@@ -39,4 +39,3 @@ _⟩∘⟨_ = ∘-cong₂ 𝓒
   (g₂ ∘ b) ∘ f₁  ↓⟨ □₂ ⟩∘⟨ refl ⟩
   (c ∘ g₁) ∘ f₁  ↓⟨ ∘-assoc 𝓒 ⟩
   c ∘ (g₁ ∘ f₁)  ∎
-
