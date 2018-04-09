@@ -30,3 +30,17 @@ module EqReasoning {A : Set} {_∼_ : Rel A} ⦃ _ : IsEquivalence _∼_ ⦄ whe
 
   ._∎ : ∀ x → x ∼ x
   x ∎ = refl
+
+record Setoid : Set where
+  field
+    ∣_∣ : Set
+    _∼_ : Rel ∣_∣
+    ⦃ .∼-equiv ⦄ : IsEquivalence _∼_
+
+open Setoid public hiding (_∼_)
+
+infix 4 _∣_∼_
+_∣_∼_ : ∀ 𝑨 → Rel ∣ 𝑨 ∣
+𝑨 ∣ x ∼ y = let open Setoid 𝑨 in x ∼ y
+
+{-# DISPLAY Setoid._∼_ = _∣_∼_ #-}
