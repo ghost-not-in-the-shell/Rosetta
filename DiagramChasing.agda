@@ -11,7 +11,7 @@ open CategoryReasoning 𝓒
        → 𝓒 ∣ g₁ ∘ f₁ ∼ g∘f
        → 𝓒 ∣ g₂ ∘ f₂ ∼ g∘f
        → 𝓒 ∣ g₁ ∘ f₁ ∼ g₂ ∘ f₂
-◁→▷ {A} {C = C} {f₁} {g₁} {f₂} {g₂} {g∘f} ◁ ▷ = begin
+◁→▷ {f₁ = f₁} {g₁} {f₂} {g₂} {g∘f} ◁ ▷ = begin
   g₁ ∘ f₁  ↓⟨ ◁ ⟩
   g∘f      ↑⟨ ▷ ⟩
   g₂ ∘ f₂  ∎
@@ -23,11 +23,10 @@ open CategoryReasoning 𝓒
        → 𝓒 ∣ f₂ ∘ a ∼ b ∘ f₁
        → 𝓒 ∣ g₂ ∘ b ∼ c ∘ g₁
        → 𝓒 ∣ (g₂ ∘ f₂) ∘ a ∼ c ∘ (g₁ ∘ f₁)
-□↓□ {A₁} {C₂ = C₂} {f₁} {g₁} {f₂} {g₂} {a} {b} {c} □₁ □₂ = begin
+□↓□ {f₁ = f₁} {g₁} {f₂} {g₂} {a} {b} {c} □₁ □₂ = begin
   (g₂ ∘ f₂) ∘ a  ↓⟨ ∘-assoc 𝓒 ⟩
   g₂ ∘ (f₂ ∘ a)  ↓⟨ refl ⟩∘⟨ □₁ ⟩
   g₂ ∘ (b ∘ f₁)  ↑⟨ ∘-assoc 𝓒 ⟩
   (g₂ ∘ b) ∘ f₁  ↓⟨ □₂ ⟩∘⟨ refl ⟩
   (c ∘ g₁) ∘ f₁  ↓⟨ ∘-assoc 𝓒 ⟩
   c ∘ (g₁ ∘ f₁)  ∎
-
