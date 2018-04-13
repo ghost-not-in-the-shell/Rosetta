@@ -15,5 +15,5 @@ record Σ (A : Set) (B : A → Set) : Set where
 Rel : Set → Set
 Rel A = A → A → Set
 
-flip : ∀ {A₁ A₂} {B : A₁ → A₂ → Set} → (∀ (x₁ : A₁) (x₂ : A₂) → B x₁ x₂) → (∀ (x₂ : A₂) (x₁ : A₁) → B x₁ x₂)
+flip : ∀ {A₁ A₂ B} → (A₁ → A₂ → B) → (A₂ → A₁ → B)
 flip _∙_ = λ x₂ x₁ → x₁ ∙ x₂
