@@ -6,11 +6,11 @@ open import Rosetta.Equivalence
 record Functor (𝓒 𝓓 : Category) : Set where
   infixr 6 _₀_
   infixr 6 _₁_
-  infixr 6 _₂_
+  infixr 6 _₁-cong_
   field
-    _₀_  : ob 𝓒 → ob 𝓓
-    _₁_  : ∀ {A B} → 𝓒 ∣ A ⟶ B → 𝓓 ∣ _₀_ A ⟶ _₀_ B
-    ._₂_ : ∀ {A B} {f g : 𝓒 ∣ A ⟶ B}
+    _₀_ : ob 𝓒 → ob 𝓓
+    _₁_ : ∀ {A B} → 𝓒 ∣ A ⟶ B → 𝓓 ∣ _₀_ A ⟶ _₀_ B
+    ._₁-cong_ : ∀ {A B} {f g : 𝓒 ∣ A ⟶ B}
       → 𝓒 ∣ f ∼ g
       → 𝓓 ∣ _₁_ f ∼ _₁_ g
 

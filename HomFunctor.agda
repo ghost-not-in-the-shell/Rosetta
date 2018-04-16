@@ -15,26 +15,26 @@ open CategoryReasoning 𝓒
   → ∀ B
   → 𝓢𝓮𝓽  ∣ 𝒉𝒐𝒎 𝓒 A B ⟶ 𝒉𝒐𝒎 𝓒 A′ B
 𝓱𝓸𝓶₍ f , B ₎ = record
-  { _₀_ =  _∘        f
-  ; _₁_ = _⟩∘⟨ refl₍ f ₎
+  { _$_  =  _∘        f
+  ; 𝒄𝒐𝒏𝒈 = _⟩∘⟨ refl₍ f ₎
   }
 
 𝓱𝓸𝓶₍-,_₎ : ∀ B → 𝓒 ᵒᵖ ⟶ 𝓢𝓮𝓽
 𝓱𝓸𝓶₍-, B ₎ = record
-  { _₀_ = λ - → 𝒉𝒐𝒎 𝓒 - B
-  ; _₁_ = 𝓱𝓸𝓶₍_, B ₎
-  ; _₂_ = λ f₁∼f₂ g₁∼g₂ → g₁∼g₂ ⟩∘⟨ f₁∼f₂
-  ; resp-∘₀ = λ {A}
-                {g₁ g₂ : 𝓒 ∣ A ⟶ B}
-                g₁∼g₂ → begin
+  { _₀_      = λ - → 𝒉𝒐𝒎 𝓒 - B
+  ; _₁_      = 𝓱𝓸𝓶₍_, B ₎
+  ; _₁-cong_ = λ f₁∼f₂ g₁∼g₂ → g₁∼g₂ ⟩∘⟨ f₁∼f₂
+  ; resp-∘₀  = λ {A}
+                 {g₁ g₂ : 𝓒 ∣ A ⟶ B}
+                 g₁∼g₂ → begin
     g₁ ∘ id  ↓⟨ ∘-unitʳ 𝓒 ⟩
     g₁       ↓⟨ g₁∼g₂ ⟩
     g₂       ∎
-  ; resp-∘₂ = λ {A A′ A″}
-                {f     : 𝓒 ᵒᵖ ∣ A  ⟶ A′}
-                {f′    : 𝓒 ᵒᵖ ∣ A′ ⟶ A″}
-                {g₁ g₂ : 𝓒    ∣ A  ⟶ B }
-                g₁∼g₂ → begin
+  ; resp-∘₂  = λ {A A′ A″}
+                 {f     : 𝓒 ᵒᵖ ∣ A  ⟶ A′}
+                 {f′    : 𝓒 ᵒᵖ ∣ A′ ⟶ A″}
+                 {g₁ g₂ : 𝓒    ∣ A  ⟶ B }
+                 g₁∼g₂ → begin
     g₁ ∘ (f′ ∘̅ f)  ↓⟨ g₁∼g₂ ⟩∘⟨ refl ⟩
     g₂ ∘ (f ∘ f′)  ↑⟨ ∘-assoc 𝓒 ⟩
     (g₂ ∘ f) ∘ f′  ∎
@@ -46,26 +46,26 @@ open CategoryReasoning 𝓒
   → 𝓒   ∣         B ⟶         B′
   → 𝓢𝓮𝓽 ∣ 𝒉𝒐𝒎 𝓒 A B ⟶ 𝒉𝒐𝒎 𝓒 A B′
 𝓱𝓸𝓶⁽ A , h ⁾ = record
-  { _₀_ =       h    ∘_
-  ; _₁_ = refl₍ h ₎ ⟩∘⟨_
+  { _$_  =       h    ∘_
+  ; 𝒄𝒐𝒏𝒈 = refl₍ h ₎ ⟩∘⟨_
   }
 
 𝓱𝓸𝓶⁽_,-⁾ : ∀ A → 𝓒 ⟶ 𝓢𝓮𝓽
 𝓱𝓸𝓶⁽ A ,-⁾ = record
-  { _₀_ = λ - → 𝒉𝒐𝒎 𝓒 A -
-  ; _₁_ = 𝓱𝓸𝓶⁽ A ,_⁾
-  ; _₂_ = λ h₁∼h₂ g₁∼g₂ → h₁∼h₂ ⟩∘⟨ g₁∼g₂
-  ; resp-∘₀ = λ {B}
-                {g₁ g₂ : 𝓒 ∣ A ⟶ B}
-                g₁∼g₂ → begin
+  { _₀_      = λ - → 𝒉𝒐𝒎 𝓒 A -
+  ; _₁_      = 𝓱𝓸𝓶⁽ A ,_⁾
+  ; _₁-cong_ = λ h₁∼h₂ g₁∼g₂ → h₁∼h₂ ⟩∘⟨ g₁∼g₂
+  ; resp-∘₀  = λ {B}
+                 {g₁ g₂ : 𝓒 ∣ A ⟶ B}
+                 g₁∼g₂ → begin
     id ∘ g₁  ↓⟨ ∘-unitˡ 𝓒 ⟩
     g₁       ↓⟨ g₁∼g₂ ⟩
     g₂       ∎
-  ; resp-∘₂ = λ {B B′ B″}
-                {h     : 𝓒 ∣ B  ⟶ B′}
-                {h′    : 𝓒 ∣ B′ ⟶ B″}
-                {g₁ g₂ : 𝓒 ∣ A  ⟶ B }
-                g₁∼g₂ → begin
+  ; resp-∘₂  = λ {B B′ B″}
+                 {h     : 𝓒 ∣ B  ⟶ B′}
+                 {h′    : 𝓒 ∣ B′ ⟶ B″}
+                 {g₁ g₂ : 𝓒 ∣ A  ⟶ B }
+                 g₁∼g₂ → begin
     (h′ ∘ h) ∘ g₁  ↓⟨ refl ⟩∘⟨ g₁∼g₂ ⟩
     (h′ ∘ h) ∘ g₂  ↓⟨ ∘-assoc 𝓒 ⟩
     h′ ∘ (h ∘ g₂)  ∎
@@ -75,24 +75,24 @@ open CategoryReasoning 𝓒
 
 𝓱𝓸𝓶₍-,-₎ : 𝓒 ᵒᵖ × 𝓒 ⟶ 𝓢𝓮𝓽
 𝓱𝓸𝓶₍-,-₎ = record
-  { _₀_ = λ { (A , B) → 𝒉𝒐𝒎 𝓒 A B }
-  ; _₁_ = λ { {A , B} {A′ , B′} (f , h) → record
-    { _₀_ = λ g     →       h    ∘  g      ∘        f
-    ; _₁_ = λ g₁∼g₂ → refl₍ h ₎ ⟩∘⟨ g₁∼g₂ ⟩∘⟨ refl₍ f ₎
+  { _₀_      = λ { (A , B) → 𝒉𝒐𝒎 𝓒 A B }
+  ; _₁_      = λ { {A , B} {A′ , B′} (f , h) → record
+    { _$_  = λ g     →       h    ∘  g      ∘        f
+    ; 𝒄𝒐𝒏𝒈 = λ g₁∼g₂ → refl₍ h ₎ ⟩∘⟨ g₁∼g₂ ⟩∘⟨ refl₍ f ₎
     } }
-  ; _₂_ = λ { (f₁∼f₂ , h₁∼h₂) g₁∼g₂ → h₁∼h₂ ⟩∘⟨ g₁∼g₂ ⟩∘⟨ f₁∼f₂ }
-  ; resp-∘₀ = λ { {A , B} {g₁} {g₂} g₁∼g₂ → begin
+  ; _₁-cong_ = λ { (f₁∼f₂ , h₁∼h₂) g₁∼g₂ → h₁∼h₂ ⟩∘⟨ g₁∼g₂ ⟩∘⟨ f₁∼f₂ }
+  ; resp-∘₀  = λ { {A , B} {g₁} {g₂} g₁∼g₂ → begin
     id ∘ g₁ ∘ id  ↓⟨ ∘-unitˡ 𝓒 ⟩
     g₁ ∘ id       ↓⟨ ∘-unitʳ 𝓒 ⟩
     g₁            ↓⟨ g₁∼g₂ ⟩
     g₂            ∎ }
-  ; resp-∘₂ = λ { {A , B} {A′ , B′} {A″ , B″}
-                  {f  , h } -- f     : 𝓒 ᵒᵖ ∣ A  ⟶ A′
-                            -- h     : 𝓒    ∣ B  ⟶ B′
-                  {f′ , h′} -- f′    : 𝓒 ᵒᵖ ∣ A′ ⟶ A″
-                            -- h′    : 𝓒    ∣ B′ ⟶ B″
-                  {g₁} {g₂} -- g₁ g₂ : 𝓒    ∣ A  ⟶ B
-                  g₁∼g₂ → begin
+  ; resp-∘₂  = λ { {A , B} {A′ , B′} {A″ , B″}
+                   {f  , h } -- f     : 𝓒 ᵒᵖ ∣ A  ⟶ A′
+                             -- h     : 𝓒    ∣ B  ⟶ B′
+                   {f′ , h′} -- f′    : 𝓒 ᵒᵖ ∣ A′ ⟶ A″
+                             -- h′    : 𝓒    ∣ B′ ⟶ B″
+                   {g₁} {g₂} -- g₁ g₂ : 𝓒    ∣ A  ⟶ B
+                   g₁∼g₂ → begin
     (h′ ∘ h) ∘ g₁ ∘ (f′ ∘̅ f)  ↓⟨ refl ⟩∘⟨ g₁∼g₂ ⟩∘⟨ refl ⟩
     (h′ ∘ h) ∘ g₂ ∘ (f ∘ f′)  ↓⟨ ∘-assoc 𝓒 ⟩
     h′ ∘ h ∘ g₂ ∘ f ∘ f′      ↑⟨ refl ⟩∘⟨ ∘-assoc 𝓒 ⟩
@@ -131,21 +131,21 @@ open CategoryReasoning 𝓒
 
 𝓱₋ : 𝓒 ⟶ [ 𝓒 ᵒᵖ , 𝓢𝓮𝓽 ]
 𝓱₋ = record
-  { _₀_ = 𝓱₍_₎₀
-  ; _₁_ = 𝓱₍_₎₁
-  ; _₂_ = λ h₁∼h₂ g₁∼g₂ → h₁∼h₂ ⟩∘⟨ g₁∼g₂
-  ; resp-∘₀ = λ {B A}
-                {g₁ g₂ : 𝓒 ∣ A ⟶ B}
-                g₁∼g₂ → begin
+  { _₀_      = 𝓱₍_₎₀
+  ; _₁_      = 𝓱₍_₎₁
+  ; _₁-cong_ = λ h₁∼h₂ g₁∼g₂ → h₁∼h₂ ⟩∘⟨ g₁∼g₂
+  ; resp-∘₀  = λ {B A}
+                 {g₁ g₂ : 𝓒 ∣ A ⟶ B}
+                 g₁∼g₂ → begin
     id ∘ g₁  ↓⟨ ∘-unitˡ 𝓒 ⟩
     g₁       ↓⟨ g₁∼g₂ ⟩
     g₂       ∎
-  ; resp-∘₂ = λ {B B′ B″}
-                {h     : 𝓒 ∣ B  ⟶ B′}
-                {h′    : 𝓒 ∣ B′ ⟶ B″}
-                {A}
-                {g₁ g₂ : 𝓒 ∣ A  ⟶ B }
-                g₁∼g₂ → begin
+  ; resp-∘₂  = λ {B B′ B″}
+                 {h     : 𝓒 ∣ B  ⟶ B′}
+                 {h′    : 𝓒 ∣ B′ ⟶ B″}
+                 {A}
+                 {g₁ g₂ : 𝓒 ∣ A  ⟶ B }
+                 g₁∼g₂ → begin
     (h′ ∘ h) ∘ g₁  ↓⟨ refl ⟩∘⟨ g₁∼g₂ ⟩
     (h′ ∘ h) ∘ g₂  ↓⟨ ∘-assoc 𝓒 ⟩
     h′ ∘ (h ∘ g₂)  ∎
@@ -153,21 +153,21 @@ open CategoryReasoning 𝓒
 
 𝓱⁻ : 𝓒 ᵒᵖ ⟶ [ 𝓒 , 𝓢𝓮𝓽 ]
 𝓱⁻ = record
-  { _₀_ = 𝓱⁽_⁾⁰
-  ; _₁_ = 𝓱⁽_⁾¹
-  ; _₂_ = λ f₁∼f₂ g₁∼g₂ → g₁∼g₂ ⟩∘⟨ f₁∼f₂
-  ; resp-∘₀ = λ {A B}
-                {g₁ g₂ : 𝓒 ∣ A ⟶ B}
-                g₁∼g₂ → begin
+  { _₀_      = 𝓱⁽_⁾⁰
+  ; _₁_      = 𝓱⁽_⁾¹
+  ; _₁-cong_ = λ f₁∼f₂ g₁∼g₂ → g₁∼g₂ ⟩∘⟨ f₁∼f₂
+  ; resp-∘₀  = λ {A B}
+                 {g₁ g₂ : 𝓒 ∣ A ⟶ B}
+                 g₁∼g₂ → begin
     g₁ ∘ id  ↓⟨ ∘-unitʳ 𝓒 ⟩
     g₁       ↓⟨ g₁∼g₂ ⟩
     g₂       ∎
-  ; resp-∘₂ = λ {A A′ A″}
-                {f     : 𝓒 ᵒᵖ ∣ A  ⟶ A′}
-                {f′    : 𝓒 ᵒᵖ ∣ A′ ⟶ A″}
-                {B}
-                {g₁ g₂ : 𝓒    ∣ A  ⟶ B }
-                g₁∼g₂ → begin
+  ; resp-∘₂  = λ {A A′ A″}
+                 {f     : 𝓒 ᵒᵖ ∣ A  ⟶ A′}
+                 {f′    : 𝓒 ᵒᵖ ∣ A′ ⟶ A″}
+                 {B}
+                 {g₁ g₂ : 𝓒    ∣ A  ⟶ B }
+                 g₁∼g₂ → begin
     g₁ ∘ (f′ ∘̅ f)  ↓⟨ g₁∼g₂ ⟩∘⟨ refl ⟩
     g₂ ∘ (f ∘ f′)  ↑⟨ ∘-assoc 𝓒 ⟩
     (g₂ ∘ f) ∘ f′  ∎

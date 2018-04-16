@@ -13,3 +13,4 @@ open import Rosetta.NaturalTransformation
 open import Rosetta.Prelude
 open import Rosetta.Setoids
 open import Rosetta.Sets
+open import Rosetta.Yoneda
