@@ -1,10 +1,8 @@
 {-# OPTIONS --type-in-type #-}
-module Rosetta.Sets where
-open import Rosetta.CartesianClosed
-open import Rosetta.Category
-open import Rosetta.Equality
-open import Rosetta.Equivalence
+module Rosetta.Category.Sets where
 open import Rosetta.Prelude
+open import Rosetta.Category.CartesianClosed
+open import Rosetta.Category.Core
 
 Function : Set → Set → Set
 Function A B = A → B
@@ -18,10 +16,10 @@ instance
 
 𝓢et : Category
 𝓢et = record
-  { ob = Set
-  ; _∣_⟶_ = Function
+  { ob    = Set
+  ; hom   = Function
   ; _∣_∼_ = _≡_
-  ; ∘-cong₂ = cong₂ _∘_
+  ; ∘-cong₂ = λ g₁≡g₂ f₁≡f₂ → ≡-cong₂ _∘_ g₁≡g₂ f₁≡f₂
   ; ∘-unitˡ = ≡-refl
   ; ∘-unitʳ = ≡-refl
   ; ∘-assoc = ≡-refl
@@ -29,16 +27,16 @@ instance
 
 module 𝓢et where
   infixr 6 _×_
-  infixr 7 _⇒_
+  infixl 7 _^_
 
   𝟙 : Set
-  𝟙 = ⊤
+  𝟙 = Unit
 
   _×_ : Set → Set → Set
-  A × B = Σ A λ _ → B
+  A × B = Product A B
 
-  _⇒_ : Set → Set → Set
-  A ⇒ B = A → B
+  _^_ : Set → Set → Set
+  B ^ A = A → B
 
 open 𝓢et
 
@@ -47,7 +45,7 @@ instance
   𝓢et∣op✓ = record
     { 𝟙   = 𝟙
     ; _×_ = _×_
-    ; _⇒_ = _⇒_
+    ; _^_ = _^_
     ; !     = λ _ → tt
     ; π₁    = λ { (x , y) → x }
     ; π₂    = λ { (x , y) → y }
@@ -59,11 +57,11 @@ instance
 𝓢et✓ : CartesianClosed 𝓢et
 𝓢et✓ = record
   { !-universal   = ≡-refl
-  ; ⟨,⟩-cong₂     = cong₂ ⟨_,_⟩
+  ; ⟨,⟩-cong₂     = λ f₁≡f₂ g₁≡g₂ → ≡-cong₂ ⟨_,_⟩ f₁≡f₂ g₁≡g₂
   ; ⟨,⟩-commute₁  = ≡-refl
   ; ⟨,⟩-commute₂  = ≡-refl
-  ; ⟨,⟩-universal = cong₂ ⟨_,_⟩
-  ; ƛ-cong        = cong ƛ_
+  ; ⟨,⟩-universal = λ ⁇-commute₁ ⁇-commute₂ → ≡-cong₂ ⟨_,_⟩ ⁇-commute₁ ⁇-commute₂
+  ; ƛ-cong        = λ f₁≡f₂ → ≡-cong ƛ_ f₁≡f₂
   ; ƛ-commute     = ≡-refl
-  ; ƛ-universal   = cong ƛ_
+  ; ƛ-universal   = λ ⁇-commute → ≡-cong ƛ_ ⁇-commute
   }

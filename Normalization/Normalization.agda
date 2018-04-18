@@ -1,0 +1,1 @@
+{-# OPTIONS --type-in-type #-}

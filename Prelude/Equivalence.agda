@@ -1,8 +1,8 @@
 {-# OPTIONS --type-in-type #-}
-module Rosetta.Equivalence where
-open import Rosetta.Prelude
+module Rosetta.Prelude.Equivalence where
+open import Agda.Builtin.Equality renaming (refl to ≡-refl)
 
-record IsEquivalence {A : Set} (_∼_ : Rel A) : Set where
+record IsEquivalence {A : Set} (_∼_ : A → A → Set) : Set where
   field
     .refl  : ∀ {x} → x ∼ x
     .sym   : ∀ {x y} → x ∼ y → y ∼ x
@@ -11,13 +11,17 @@ record IsEquivalence {A : Set} (_∼_ : Rel A) : Set where
   .refl₍_₎ : ∀ x → x ∼ x
   refl₍ x ₎ = refl
 
+  .from≡ : ∀ {x y} → x ≡ y → x ∼ y
+  from≡ ≡-refl = refl
+
 open IsEquivalence ⦃...⦄ public
 
 record Setoid : Set where
+  infix 4 _∣_∼_
   field
     ∣_∣ : Set
-    _∣_∼_ : Rel ∣_∣
-    ⦃ .∼-equiv ⦄ : IsEquivalence _∣_∼_
+    _∣_∼_ : ∣_∣ → ∣_∣ → Set
+    ⦃ .∼‿equiv ⦄ : IsEquivalence _∣_∼_
 
 open Setoid public
 

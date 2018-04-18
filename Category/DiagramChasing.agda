@@ -1,7 +1,7 @@
 {-# OPTIONS --type-in-type #-}
-open import Rosetta.Category
-module Rosetta.DiagramChasing (𝓒 : Category) where
-open import Rosetta.Equivalence
+open import Rosetta.Category.Core
+module Rosetta.Category.DiagramChasing (𝓒 : Category) where
+open import Rosetta.Prelude
 open CategoryReasoning 𝓒
 
 .◁→▷ : ∀ {A B₁ B₂ C}
